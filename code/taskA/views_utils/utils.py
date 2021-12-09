@@ -114,3 +114,39 @@ def load_model(file_name: str):
         model = cloudpickle.load(f)
 
     return model
+
+def get_img(asset_contract_address: str, token_id: str):
+    """
+    Get the asset data.
+
+    Parameters
+    ----------
+    asset_contract_address : str
+        The string of asset contract address.
+    token_id : str
+        The string of token id.
+
+    Returns
+    -------
+    img : np.ndarray 
+        Get image from opensea API data.
+    """
+
+    if type(token_id) != str:
+        token_id = str(token_id)
+    url = f"https://api.opensea.io/api/v1/asset/{asset_contract_address}/{token_id}/"
+    headers = {"Accept": "application/json"}
+
+    response = requests.request("GET", url, headers=headers)
+
+    data = response.json()
+    asset_df = pd.json_normalize(data)
+
+    img_url = asset_df['image_url'].values[0]
+    img = requests.get(img_url).content
+    if is_svg(img_url):
+        img = svg2png(bytestring=img)
+    img = Image.open(BytesIO(img)).convert("RGBA")
+    img = cv2.cvtColor(np.array(img), cv2.COLOR_RGBA2BGR)
+
+    return img
