@@ -1,4 +1,6 @@
 import sys
+import base64
+import io
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -20,7 +22,14 @@ def index(request):
         img = Image.open(request.FILES['img'])
         img = cv2.cvtColor(np.array(img), cv2.COLOR_RGBA2BGR)
         pred = model.model.predict(cv2.resize(img/225., (224, 224)).reshape(1, 224, 224, 3))[0][0]
-        return render(request, 'taskB/result.html', {'pred': pred})
+
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGBA)
+        img = Image.fromarray(img)
+        buf = io.BytesIO()
+        img.save(buf, format="PNG")
+        base_64img = base64.b64encode(buf.getvalue()).decode().replace("'", "")
+
+        return render(request, 'taskB/result.html', {'pred': pred, 'img': base_64img})
     else:
         form = TaskBForm(request.POST, request.FILES)
         return render(request, 'taskB/index.html', {'form': form})

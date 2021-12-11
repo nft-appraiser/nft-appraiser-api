@@ -117,7 +117,7 @@ def load_model(file_name: str):
 
 def get_img(asset_contract_address: str, token_id: str):
     """
-    Get the asset data.
+    Get the asset image data.
 
     Parameters
     ----------
