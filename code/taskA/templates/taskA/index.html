@@ -6,10 +6,14 @@
 	</head>
 	
 	<body>
+		<h1>Please enter asset contract address and token id of the NFT you want to predict the price in the future.</h1>
 		<form method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			{{ form.as_p }}
 			<button type="submit">Predict</button>
 		</form>
+		<h2>What is the asset contract address and token id?</h2>
+       		<p>OpneSea's URL seems to be https://opensea.io/assets/"asset contract address"/"token id"</p>
+		<p>For Example, when the URL is https://opense.io/assets/abcdefg/6174, asset contract address is "abcdefg", token id is "6174".</p>
 	</body>
 </html>
