@@ -4,8 +4,9 @@ services:
     ports:
       - "8000:8000"
     build: .
-    container_name: NFT_API 
-    working_dir: '/root/'
+    container_name: NFT_API
+    working_dir: '/root/code'
     tty: true
     volumes:
       - ./code:/root/code
+    command: python manage.py runserver 0.0.0.0:8000
