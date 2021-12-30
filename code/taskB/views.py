@@ -21,7 +21,7 @@ def index(request):
         model = load_model("taskB/swintransformerB.pkl")
         img = Image.open(request.FILES['img'])
         img = cv2.cvtColor(np.array(img), cv2.COLOR_RGBA2BGR)
-        pred = model.model.predict(cv2.resize(img/225., (224, 224)).reshape(1, 224, 224, 3))[0][0]
+        pred = model.model.predict(cv2.resize(img/255., (224, 224)).reshape(1, 224, 224, 3))[0][0]
 
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGBA)
         img = Image.fromarray(img)

@@ -21,7 +21,7 @@ def index(request):
         address = request.POST['asset_contract_address']
         token_id = request.POST['token_id']
         img = get_img(address, token_id)
-        pred = model.model.predict(cv2.resize(img/225., (224, 224)).reshape(1, 224, 224, 3))[0][0]
+        pred = model.model.predict(cv2.resize(img/255., (224, 224)).reshape(1, 224, 224, 3))[0][0]
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGBA)
 
         img = Image.fromarray(img)
