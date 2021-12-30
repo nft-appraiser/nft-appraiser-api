@@ -3,6 +3,7 @@ services:
   python3:
     ports:
       - "8000:8000"
+      - "3000:3000"
     build: .
     container_name: NFT_API
     working_dir: '/root/code'
