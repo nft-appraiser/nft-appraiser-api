@@ -20,8 +20,9 @@ def Index(request):
 def Res(request):
     data = request.body.decode('utf-8')
     jsondata = json.loads(data)
+    task = jsondata['task']
 
-    try:
+    if task == "taskB":
         # taskB predict
         image_base64 = jsondata['image']
         encoded_data = image_base64.split(',')[1]
@@ -42,7 +43,7 @@ def Res(request):
                 "task" : "taskB"
                 })
 
-    except:
+    else:
         # taskA predict
         address = jsondata['address']
         token_id = jsondata['token_id']
