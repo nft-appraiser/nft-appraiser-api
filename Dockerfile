@@ -15,12 +15,11 @@ RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
 
 RUN python -m pip install \
-  django djangorestframework numpy pandas scikit-learn requests cairosvg opencv-python pillow tqdm ipywidgets tensorflow==2.6.0 cloudpickle \
+  django djangorestframework numpy pandas scikit-learn requests cairosvg opencv-python pillow tqdm ipywidgets tensorflow==2.6.2 cloudpickle \
   matplotlib==3.4.3
-RUN pip install keras==2.6
 
 ADD . /root
 WORKDIR /
 RUN git clone https://github.com/rishigami/Swin-Transformer-TF.git
-RUN cp -rp /Swin-Transformer-TF /root/code/Swin-Transformer-TF
+RUN cp -r /Swin-Transformer-TF /root/code/Swin-Transformer-TF
 RUN rm -r /Swin-Transformer-TF
